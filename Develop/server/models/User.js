@@ -32,15 +32,26 @@ const userSchema = new Schema(
   }
 );
 
+
+// Always hash password before storing them into a database so hackers can't get
+// sensitive informtion
 // hash user password
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
+    // saltRounds is added to the begining of the hashed password so its 
+    //harder for hackers to decript it.
     const saltRounds = 10;
+    //This refers to the INSTANCE OF THE USER we are trying to create
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
 
   next();
 });
+
+// Another way to create salt variable
+//  const salt = await bcrypt.genSalt(10)
+
+
 
 // custom method to compare and validate password for logging in
 userSchema.methods.isCorrectPassword = async function (password) {
