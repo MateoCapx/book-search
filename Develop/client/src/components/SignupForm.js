@@ -22,6 +22,7 @@ const SignupForm = () => {
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
+    //checkValidity()	Returns true if an input element contains valid data.
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();

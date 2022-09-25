@@ -16,7 +16,9 @@ export const createUser = (userData) => {
     },
     body: JSON.stringify(userData),
   });
+ 
 };
+ 
 
 export const loginUser = (userData) => {
   return fetch('/api/users/login', {
