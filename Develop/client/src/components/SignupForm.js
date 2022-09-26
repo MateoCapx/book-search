@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-
-import { createUser } from '../utils/API';
+import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -19,9 +18,11 @@ const SignupForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
+    // currentTarget - always refers to the element to which the 
+    // event handler has been attached to
     //checkValidity()	Returns true if an input element contains valid data.
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -29,8 +30,8 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await createUser(userFormData);
-
+      const response = await ADD_USER(userFormData);
+ 
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
